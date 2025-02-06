@@ -136,6 +136,16 @@ void print_board(u32 board[SIZE][SIZE]) {
 	}
 }
 
+void diff_board(u32 old[SIZE][SIZE], u32 new[SIZE][SIZE]) {
+	for (u8 r = 0; r < SIZE; r++) {
+		for (u8 c = 0; c < SIZE; c++) {
+			if (new[r][c] != old[r][c]) {
+				_print_cell(new[r][c], r, c);
+			}
+		}
+	}
+}
+
 void print_indicators(void) {
 
 	MOVE_CURSOR(24, 18);

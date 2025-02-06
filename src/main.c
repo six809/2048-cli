@@ -117,7 +117,7 @@ int main(/* int argc, char *argv[] */) {
             board_add_piece(board);
 
             print_score(score);
-            print_board(board);
+            diff_board(tmp_board, board);
             print_indicators();
 
             if (!board_can_move(board)) {
