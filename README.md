@@ -1,19 +1,33 @@
 # 2048 Terminal Game
 
-A simple implementation of the classic 2048 game in C made for GNU/Linux, designed to run in the terminal.
+This repo adapts Frost-Phoenix's implementation of the 2048 game for Linux
+terminal to run on the VT52 terminal emulation of Fuzix.  By default it will
+use the colour extensions.
 
-<p align="center">
-<img src=".github/assets/gameplay.gif" width="350" alt="Gameplay Gif">
-</p>
+Changes are:
+
+- Replace screen codes with VT52 equivalents
+- Reformat for 24 lines
+- No special graphics characters, just ASCII art boxes
+- Empty cells are white
+- Accept WASD, HJKL and cursors
+- Fix: reverts old score when taking back a move
+- Mono option (-m) and help text (-h)
+
+With sundry other compatibility changes.
+
+In addition, only changed tiles are redrawn.  This is hardly necessary under
+Linux, but if you were running over a slow serial terminal, you'd really notice
+the change.
+
+Tested on the CoCo 3 platform.
+
+Selected excerpts from Frost-Phoenix's original README follow.
 
 ## Table of Contents
 
 - [Features](#features)
 - [How to Play](#how-to-play)
-- [Requirements](#requirements)
-- [Build and Run](#build-and-run)
-- [Install](#install)
-- [Uninstall](#uninstall)
 - [Credits](#credits)
 - [License](#license)
 
@@ -27,51 +41,6 @@ A simple implementation of the classic 2048 game in C made for GNU/Linux, design
 ## How to Play
 
 The goal of the game is to combine number tiles by moving them in different directions using arrow keys, with the objective of reaching the tile with the value of 2048. When two tiles with the same value collide during a move, they merge into a new tile with the sum of their values. After each move, a new tile (either 2 or 4) will appear in an empty spot on the board. The game continues until there are no empty spots left on the board, and the player can no longer make valid moves, resulting in the game coming to an end.
-
-## Requirements
-
-- GNU Make
-- C compiler (GCC or Clang)
-
-Tested on: GNU/Linux, NixOs, Ubuntu, PopOs
-
-## Build and Run
-
-1. Clone the repository:
-2. Navigate to the project directory:
-    ```bash
-    git clone https://github.com/Frost-Phoenix/2048-cli.git
-    cd 2048-cli
-    ```
-3. Build then run the game:
-    ```bash
-    make
-    ./bin/2048
-    ```
- - Or build and run with:
-
-    ```bash
-    make run
-    ```
-5. Use arrow keys to play, and enjoy the game!
-
-## Install
-
-To install the game and make it available system-wide, use the following commands:
-
-```bash
-sudo make install
-```
-The game will be installed in the default location (/usr/local/bin). If you wish to install it in a different location, modify the INSTALL_DIR variable in the Makefile before running the install command.
-
-## Uninstall
-
-To uninstall the game, use the following command:
-
-```bash
-sudo make uninstall
-```
-This will remove the game executable form the INSTALL_DIR.
 
 ## Credits
 
