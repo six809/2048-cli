@@ -127,6 +127,7 @@ int main(/* int argc, char *argv[] */) {
 
     // restore terminal settings
     setBufferedInput(true);
-    
+    putchar('\n');
+
     return EXIT_SUCCESS;
 }

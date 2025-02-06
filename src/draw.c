@@ -53,18 +53,18 @@ static void _print_cell(u32 nb, u8 r, u8 c) {
 
 	// top half
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 1, c * CELL_WIDTH + 1);
-	printf("+--------+\n");
+	printf("+--------+");
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 2, c * CELL_WIDTH + 1);
-	printf("|        |\n");
+	printf("|        |");
 	// middle part
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 3, c * CELL_WIDTH + 1);
-	if (nb == 0) printf("|        |\n");
-	else printf("|%*d%*s|\n", nb_spaces_before, nb, nb_spaces_after, "");
+	if (nb == 0) printf("|        |");
+	else printf("|%*d%*s|", nb_spaces_before, nb, nb_spaces_after, "");
 	// bottom half
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 4, c * CELL_WIDTH + 1);
-	printf("|        |\n");
+	printf("|        |");
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 5, c * CELL_WIDTH + 1);
-	printf("+--------+\n");
+	printf("+--------+");
 
 	RESET_FORMATING;
 }
@@ -105,7 +105,7 @@ void setBufferedInput(bool enable)
 }
 
 void print_score(u32 score) {
-	CLEAR;
+	MOVE_CURSOR(1, 1);
 
 	static u32 last_score = 0;
 
@@ -132,14 +132,15 @@ void print_board(u32 board[SIZE][SIZE]) {
 		for (u8 c = 0; c < SIZE; c++) {
 			_print_cell(board[r][c], r, c);
 		}
-	    printf("\n");
 	}
 }
 
 void print_indicators(void) {
 
-	printf("%*s", 25, "^\n");
-	printf("%*s", 30, "< v >");
+	MOVE_CURSOR(24, 18);
+	printf("^");
+	MOVE_CURSOR(25, 16);
+	printf("< v >");
 
 	// back
 	MOVE_CURSOR(24, 2);
@@ -161,8 +162,6 @@ void print_indicators(void) {
 	printf("Q");
 	RESET_FORMATING;
 	printf("uit");
-
-	printf("\n");
 }
 
 void print_win(void) {
