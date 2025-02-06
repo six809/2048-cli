@@ -5,7 +5,7 @@
 
 
 #define CLEAR              printf("\033H\033J")
-#define SET_TEXT_COLOR(X)  printf("\033b%c", 0x20|X)
+#define SET_TEXT_COLOR(X)  do { if (!opt_mono) { printf("\033b%c", 0x20|X); } } while (0)
 #define MOVE_CURSOR(R, C)  printf("\033Y%c%c", R+' '-1, C+' '-1)
 #define RESET_FORMATING    printf("\033b\007")
 

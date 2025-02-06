@@ -10,6 +10,7 @@
 #include "../include/board.h"
 #include "../include/draw.h"
 
+int opt_mono = 0;
 
 void signal_callback_handler()
 {
@@ -34,7 +35,34 @@ void setup() {
 	signal(SIGINT, signal_callback_handler);
 }
 
-int main(/* int argc, char *argv[] */) {
+static void usage(const char *arg0) {
+    printf("usage: %s [-mh]\n", arg0);
+}
+
+static void helptext(void) {
+    puts("\n"
+"   -m   monochrome mode (no Fuzix colour codes)\n"
+"   -h   display this help and exit"
+    );
+}
+
+int main(int argc, char **argv) {
+
+    int opt;
+    while ((opt = getopt(argc, argv, "mh")) != -1) {
+        switch (opt) {
+        case 'm':
+            opt_mono = 1;
+            break;
+        case 'h':
+            usage(argv[0]);
+            helptext();
+            exit(EXIT_SUCCESS);
+        default:
+            usage(argv[0]);
+            exit(EXIT_FAILURE);
+        }
+    }
 
     setup();
 

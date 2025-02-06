@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+extern int opt_mono;
+
 
 typedef signed char i8;
 typedef short       i16;
