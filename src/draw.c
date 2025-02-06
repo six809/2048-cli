@@ -147,28 +147,24 @@ void diff_board(u32 old[SIZE][SIZE], u32 new[SIZE][SIZE]) {
 }
 
 void print_indicators(void) {
-
-	MOVE_CURSOR(24, 18);
-	printf("^");
-	MOVE_CURSOR(25, 16);
-	printf("< v >");
-
 	// back
-	MOVE_CURSOR(24, 2);
+	MOVE_CURSOR(24, 1);
 	SET_TEXT_COLOR(CYAN);
 	printf("B");
 	RESET_FORMATING;
-	printf("ack");
-	
+	printf("ack  ");
+
 	// restart
-	MOVE_CURSOR(25, 2);
 	SET_TEXT_COLOR(GREEN);
 	printf("R");
 	RESET_FORMATING;
-	printf("estart");
+	printf("estart   ");
+
+	SET_TEXT_COLOR(MAGENTA);
+	printf("WASD, HJKL, Cursors   ");
+	RESET_FORMATING;
 
 	// quit
-	MOVE_CURSOR(25, 39);
 	SET_TEXT_COLOR(RED);
 	printf("Q");
 	RESET_FORMATING;
