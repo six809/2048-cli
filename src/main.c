@@ -79,6 +79,12 @@ int main(/* int argc, char *argv[] */) {
             print_board(board);
             print_indicators();
             continue;
+        } else if (c == 12) {
+            CLEAR;
+            print_score(score);
+            print_board(board);
+            print_indicators();
+            continue;
         }
 
         // save current board tp a tmp buffer
