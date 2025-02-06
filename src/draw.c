@@ -45,7 +45,7 @@ static void _print_cell(u32 nb, u8 r, u8 c) {
 		SET_TEXT_COLOR(_get_color(nb));
 	}
 
-	u8 nb_spaces_before, nb_spaces_after;
+	u8 nb_spaces_before = 0, nb_spaces_after = 0;
 	if (nb < 10)         { nb_spaces_before = 4; nb_spaces_after = 4; }
 	else if (nb < 100)   { nb_spaces_before = 5; nb_spaces_after = 3; }
 	else if (nb < 1000)  { nb_spaces_before = 5; nb_spaces_after = 3; }
