@@ -93,8 +93,9 @@ int main(int argc, char **argv) {
         } else if (c == 'q' || c == 'Q') {
             break;
         } else if (c == 'r' || c == 'R') {
-            score = 0;
+            score = last_score = 0;
             board_init(board);
+            memcpy(last_board, board, sizeof(board));
             print_score(score);
             print_board(board);
             print_indicators();
