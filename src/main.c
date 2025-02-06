@@ -35,14 +35,16 @@ void setup() {
 	signal(SIGINT, signal_callback_handler);
 }
 
-static void usage(const char *arg0) {
+static void helptext(const char *arg0) {
     printf("usage: %s [-mh]\n", arg0);
-}
-
-static void helptext(void) {
-    puts("\n"
+    puts(
+"Terminal version of 2048\n"
+"Copyright (c) 2023 Frost-Phoenix\n"
+"VT52 adaptation and enhancements by Ciaran Anscomb\n"
+"Original 2048 web game by Gabriele Cirulli\n"
+"\n"
 "   -m   monochrome mode (no Fuzix colour codes)\n"
-"   -h   display this help and exit"
+"   -h   display this help and exit\n"
     );
 }
 
@@ -55,11 +57,10 @@ int main(int argc, char **argv) {
             opt_mono = 1;
             break;
         case 'h':
-            usage(argv[0]);
-            helptext();
+            helptext(argv[0]);
             exit(EXIT_SUCCESS);
         default:
-            usage(argv[0]);
+	    printf("Try '%s -h' for more information.\n", argv[0]);
             exit(EXIT_FAILURE);
         }
     }
