@@ -1,9 +1,19 @@
+FUZIX_ROOT ?= $(HOME)/src/fuzix
+TARGET ?= coco3
+include $(FUZIX_ROOT)/Kernel/platform/platform-$(TARGET)/target.mk
+ifeq ($(USERCPU),)
+	USERCPU = $(CPU)
+endif
+include $(FUZIX_ROOT)/Target/rules.$(USERCPU)
+export FUZIX_ROOT
+
 # Compiler and flags
-CC := gcc
-CFLAGS := -Wall -Wextra
+#CC := gcc
+#CFLAGS := -Wall -Wextra
+CFLAGS += -std=c99 -Os -Wall -Wextra
 
 # Debug flags with sanitizers
-DEBUG_FLAGS := -fsanitize=address,undefined
+#DEBUG_FLAGS := -fsanitize=address,undefined
 
 # Source and object files
 SRC_DIR := ./src
@@ -26,7 +36,8 @@ all: debug
 
 # Build rule
 $(BIN_DIR)/$(TARGET): $(OBJ_FILES)
-	$(CC) -I $(INCLUDE_DIR) $(CFLAGS) $^ -o $@
+	#$(CC) -I $(INCLUDE_DIR) $(CFLAGS) $^ -o $@
+	$(LINKER) $(LINKER_OPT) -o $@ $(CRT0) $(OBJ_FILES) $(LINKER_TAIL)
 
 # Compile source files
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c | $(BIN_DIR)
