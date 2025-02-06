@@ -4,19 +4,19 @@
 #include "common.h"
 
 
-#define CLEAR              printf("\033[H\033[J")
-#define SET_TEXT_COLOR(X)  printf("\033[1;3%dm", X)
-#define MOVE_CURSOR(R, C)  printf("\033[%d;%dH", R, C)
-#define RESET_FORMATING    printf("\033[0m")
+#define CLEAR              printf("\033H\033J")
+#define SET_TEXT_COLOR(X)  printf("\033b%c", 0x20|X)
+#define MOVE_CURSOR(R, C)  printf("\033Y%c%c", R+' '-1, C+' '-1)
+#define RESET_FORMATING    printf("\033b\007")
 
 typedef enum {
     BLACK,
-    RED,
-    GREEN,
-    YELLOW,
     BLUE,
+    RED,
     MAGENTA,
+    GREEN,
     CYAN,
+    YELLOW,
     WHITE
 } Color;
 

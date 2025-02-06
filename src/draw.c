@@ -53,18 +53,18 @@ static void _print_cell(u32 nb, u8 r, u8 c) {
 
 	// top half
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 1, c * CELL_WIDTH + 1);
-	printf("╭────────╮\n");
+	printf("+--------+\n");
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 2, c * CELL_WIDTH + 1);
-	printf("│        │\n");
+	printf("|        |\n");
 	// middle part
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 3, c * CELL_WIDTH + 1);
-	if (nb == 0) printf("│        │\n");
-	else printf("│%*d%*s│\n", nb_spaces_before, nb, nb_spaces_after, "");
+	if (nb == 0) printf("|        |\n");
+	else printf("|%*d%*s|\n", nb_spaces_before, nb, nb_spaces_after, "");
 	// bottom half
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 4, c * CELL_WIDTH + 1);
-	printf("│        │\n");
+	printf("|        |\n");
 	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 5, c * CELL_WIDTH + 1);
-	printf("╰────────╯\n");
+	printf("+--------+\n");
 
 	RESET_FORMATING;
 }
@@ -85,7 +85,7 @@ void setBufferedInput(bool enable)
 		// restore the former settings
 		tcsetattr(STDIN_FILENO, TCSANOW, &old);
 		// make cursor visible, reset all modes
-		printf("\033[?25h\033[m");
+		printf("\033e");
 		// set the new state
 		enabled = true;
 	}
@@ -138,8 +138,8 @@ void print_board(u32 board[SIZE][SIZE]) {
 
 void print_indicators(void) {
 
-	printf("%*s", 25, "↑\n");
-	printf("%*s", 30, "← ↓ →");
+	printf("%*s", 25, "^\n");
+	printf("%*s", 30, "< v >");
 
 	// back
 	MOVE_CURSOR(24, 2);

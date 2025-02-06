@@ -25,7 +25,7 @@ void signal_callback_handler()
 void setup() {
     CLEAR;
     // make cursor invisible, erase entire screen
-    printf("\033[?25l\033[2J");
+    printf("\033f\033J");
     // init rng
     srand(time(NULL));
     // disable input buffering, input are processed immediately
