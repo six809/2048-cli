@@ -38,7 +38,7 @@ int main(/* int argc, char *argv[] */) {
 
     setup();
 
-    char c;
+    int c;
     u32 score = 0;
     bool run = true;
     u32 board[SIZE][SIZE];
@@ -52,6 +52,7 @@ int main(/* int argc, char *argv[] */) {
     print_indicators();
 
     while (run) {
+        fflush(stdout);
         c = getchar();
         bool has_move = false;
 

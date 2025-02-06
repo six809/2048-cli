@@ -97,6 +97,7 @@ void setBufferedInput(bool enable)
 		old = new;
 		// disable canonical mode (buffered i/o) and local echo
 		new.c_lflag &= (~ICANON & ~ECHO);
+		new.c_cc[VMIN] = 1;
 		// set the new settings immediately
 		tcsetattr(STDIN_FILENO, TCSANOW, &new);
 		// set the new state
