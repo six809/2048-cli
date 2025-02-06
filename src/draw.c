@@ -40,7 +40,7 @@ static Color _get_color(u32 nb) {
 
 static void _print_cell(u32 nb, u8 r, u8 c) {
 	if (nb == 0) {
-		SET_TEXT_COLOR(BLACK);		
+		SET_TEXT_COLOR(WHITE);
 	} else {
 		SET_TEXT_COLOR(_get_color(nb));
 	}
