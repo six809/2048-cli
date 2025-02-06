@@ -84,15 +84,19 @@ int main(/* int argc, char *argv[] */) {
         memcpy(tmp_board, board, sizeof(board));
 
         switch (c) {
+            case 'k': case 'w': case '^':
             case 65:  // up arrow
                 has_move = board_move_up(board, &score);
                 break;
+            case 'j': case 's': case '|':
             case 66:  // down arrow
                 has_move = board_move_down(board, &score);
                 break;
+            case 'l': case 'd': case 9:
             case 67:  // right arrow
                 has_move = board_move_right(board, &score);
                 break;
+            case 'h': case 'a': case 8:
             case 68:  // left arrow
                 has_move = board_move_left(board, &score);
                 break;
