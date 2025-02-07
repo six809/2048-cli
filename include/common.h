@@ -2,6 +2,7 @@
 #define COMMON_H
 
 extern int opt_mono;
+extern int opt_small;
 
 
 typedef signed char i8;

@@ -11,6 +11,7 @@
 #include "../include/draw.h"
 
 int opt_mono = 0;
+int opt_small = 0;
 
 void signal_callback_handler()
 {
@@ -36,7 +37,7 @@ void setup() {
 }
 
 static void helptext(const char *arg0) {
-    printf("usage: %s [-mh]\n", arg0);
+    printf("usage: %s [-msh]\n", arg0);
     puts(
 "Terminal version of 2048\n"
 "Copyright (c) 2023 Frost-Phoenix\n"
@@ -44,6 +45,7 @@ static void helptext(const char *arg0) {
 "Original 2048 web game by Gabriele Cirulli\n"
 "\n"
 "   -m   monochrome mode (no Fuzix colour codes)\n"
+"   -s   small tiles (fit within 32x16 display)\n"
 "   -h   display this help and exit\n"
     );
 }
@@ -51,10 +53,13 @@ static void helptext(const char *arg0) {
 int main(int argc, char **argv) {
 
     int opt;
-    while ((opt = getopt(argc, argv, "mh")) != -1) {
+    while ((opt = getopt(argc, argv, "msh")) != -1) {
         switch (opt) {
         case 'm':
             opt_mono = 1;
+            break;
+        case 's':
+            opt_small = 1;
             break;
         case 'h':
             helptext(argv[0]);

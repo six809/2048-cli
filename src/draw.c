@@ -51,20 +51,36 @@ static void _print_cell(u32 nb, u8 r, u8 c) {
 	else if (nb < 1000)  { nb_spaces_before = 5; nb_spaces_after = 3; }
 	else if (nb < 10000) { nb_spaces_before = 6; nb_spaces_after = 2; }
 
-	// top half
-	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 1, c * CELL_WIDTH + 1);
-	printf("+--------+");
-	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 2, c * CELL_WIDTH + 1);
-	printf("|        |");
-	// middle part
-	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 3, c * CELL_WIDTH + 1);
-	if (nb == 0) printf("|        |");
-	else printf("|%*d%*s|", nb_spaces_before, nb, nb_spaces_after, "");
-	// bottom half
-	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 4, c * CELL_WIDTH + 1);
-	printf("|        |");
-	MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 5, c * CELL_WIDTH + 1);
-	printf("+--------+");
+	if (!opt_small) {
+		// normal display
+
+		// top half
+		MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 1, c * CELL_WIDTH + 1);
+		printf("+--------+");
+		MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 2, c * CELL_WIDTH + 1);
+		printf("|        |");
+		// middle part
+		MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 3, c * CELL_WIDTH + 1);
+		if (nb == 0) printf("|        |");
+		else printf("|%*d%*s|", nb_spaces_before, nb, nb_spaces_after, "");
+		// bottom half
+		MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 4, c * CELL_WIDTH + 1);
+		printf("|        |");
+		MOVE_CURSOR(r * CELL_HEIGHT + ROW_OFFCET + 5, c * CELL_WIDTH + 1);
+		printf("+--------+");
+	} else {
+		// small display
+
+		nb_spaces_before -= 2;
+		nb_spaces_after -= 2;
+		MOVE_CURSOR(r * 3 + 2 + 1, c * 7 + 2 + 1);
+		printf("+----+");
+		MOVE_CURSOR(r * 3 + 2 + 2, c * 7 + 2 + 1);
+		if (nb == 0) printf("|    |");
+		else printf("|%*d%*s|", nb_spaces_before, nb, nb_spaces_after, "");
+		MOVE_CURSOR(r * 3 + 2 + 3, c * 7 + 2 + 1);
+		printf("+----+");
+	}
 
 	RESET_FORMATING;
 }
@@ -106,20 +122,21 @@ void setBufferedInput(bool enable)
 }
 
 void print_score(u32 score) {
-	MOVE_CURSOR(1, 1);
+	MOVE_CURSOR(1, opt_small ? 1 : 2);
 
 	static u32 last_score = 0;
+	i8 swidth = opt_small ? 22 : 32;
 
-	SET_TEXT_COLOR(YELLOW); printf(" Score"); RESET_FORMATING;
+	SET_TEXT_COLOR(YELLOW); printf("Score"); RESET_FORMATING;
 
 	if (score - last_score != 0) {
 		SET_TEXT_COLOR(GREEN);
-		u32 len = snprintf(NULL, 0, "  + %d", score - last_score);
+		i8 len = snprintf(NULL, 0, "  + %d", score - last_score);
 		printf("  + %d", score - last_score);
 		RESET_FORMATING;
-		printf("%*d", 32 - len, score);
+		printf("%*d", swidth - len, score);
 	} else {
-		printf("%*d", 32, score);
+		printf("%*d", swidth, score);
 	}
 
 	printf(" pts");
@@ -148,7 +165,7 @@ void diff_board(u32 old[SIZE][SIZE], u32 new[SIZE][SIZE]) {
 
 void print_indicators(void) {
 	// back
-	MOVE_CURSOR(24, 1);
+	MOVE_CURSOR(opt_small ? 16 : 24, 1);
 	SET_TEXT_COLOR(CYAN);
 	printf("B");
 	RESET_FORMATING;
@@ -160,9 +177,13 @@ void print_indicators(void) {
 	RESET_FORMATING;
 	printf("estart   ");
 
-	SET_TEXT_COLOR(MAGENTA);
-	printf("WASD, HJKL, Cursors   ");
-	RESET_FORMATING;
+	if (!opt_small) {
+		SET_TEXT_COLOR(MAGENTA);
+		printf("WASD, HJKL, Cursors   ");
+		RESET_FORMATING;
+	} else {
+		printf("%11s", "");
+	}
 
 	// quit
 	SET_TEXT_COLOR(RED);
@@ -172,14 +193,14 @@ void print_indicators(void) {
 }
 
 void print_win(void) {
-	MOVE_CURSOR(1, 18);
+	MOVE_CURSOR(opt_small ? 2 : 1, opt_small ? 12 : 18);
 	SET_TEXT_COLOR(CYAN);
 	printf("You win !");
 	RESET_FORMATING;
 }
 
 void print_game_over(void) {
-	MOVE_CURSOR(1, 18);
+	MOVE_CURSOR(opt_small ? 2 : 1, opt_small ? 12 : 18);
 	SET_TEXT_COLOR(RED);
 	printf("GAME OVER");
 	RESET_FORMATING;
